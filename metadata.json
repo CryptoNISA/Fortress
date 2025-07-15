@@ -1,0 +1,8 @@
+{
+  "name": "Fortress Investment Group",
+  "description": "A comprehensive crypto trading application by Fortress Investment Group, with live market data, an advanced trading interface, and user profile management.",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "prompt": ""
+}
