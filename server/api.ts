@@ -1,4 +1,3 @@
-
 import type { User, Transaction, KYCStatus, KycRequest, PendingDeposit, Notification, PendingWithdrawal, SecondContractTrade, UserDetails, KYCData, LoginRecord, SystemSettings, ReferralInfo, VipTier } from '../types.ts';
 
 // --- DATABASE PERSISTENCE ---
@@ -187,41 +186,7 @@ const loadDB = (): MockDB => {
         return JSON.parse(JSON.stringify(initialDb));
     }
     
-    // --- Special update for UID-10001 ---
-    const userToUpdate = Object.values(loadedDb.users).find(u => u.uid === 'UID-10001');
-    if (userToUpdate) {
-        const randomAmount = Math.floor(Math.random() * 901) + 100; // Random amount between 100 and 1000
-        userToUpdate.portfolio.balance += randomAmount;
 
-        const newTransaction: Transaction = {
-            id: `tx-rand-adj-${Date.now()}`,
-            type: 'Admin Adjustment',
-            asset: 'USDT',
-            amount: randomAmount,
-            status: 'Completed',
-            date: new Date().toISOString()
-        };
-        
-        if (!userToUpdate.transactions) {
-            userToUpdate.transactions = [];
-        }
-        userToUpdate.transactions.unshift(newTransaction);
-
-        const newNotification: Notification = {
-            id: `notif-rand-adj-${Date.now()}`,
-            type: 'system',
-            title: 'Account Credited',
-            message: `A random bonus of $${randomAmount.toFixed(2)} has been added to your account.`,
-            date: new Date().toISOString(),
-            read: false,
-        };
-        
-        if (!userToUpdate.notifications) {
-            userToUpdate.notifications = [];
-        }
-        userToUpdate.notifications.unshift(newNotification);
-    }
-    // --- End special update ---
 
     return loadedDb;
 };
